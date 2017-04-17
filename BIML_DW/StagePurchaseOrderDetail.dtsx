@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/17/2017 18:05:00" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="GRIFF-PC" DTS:CreatorName="griff182uk" DTS:DTSID="{5EC92399-99A6-4459-8B71-488833F47ABC}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="2057" DTS:ObjectName="StagePurchaseOrderDetail" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{FE3E0B00-C4AF-483D-9DBA-C9AB2BEBC763}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{EEBB0B2D-CA1F-4A18-8CD7-CF7170D036D5}" DTS:ObjectName="Source" DTS:refId="Package.ConnectionManagers[Source]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=GRIFF-PC\SQLEXPRESS2014;initial catalog=AdventureWorks2014;provider=SQLNCLI11.1;integrated security=SSPI"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+      <DTS:PropertyExpression DTS:Name="InitalCatalog">@[$Project::DatabaseSource]</DTS:PropertyExpression>
+      <DTS:PropertyExpression DTS:Name="ServerName">@[$Project::ServerSource]</DTS:PropertyExpression>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{2B4E0527-6B38-4273-891A-84E5AE88DCAB}" DTS:ObjectName="Target" DTS:refId="Package.ConnectionManagers[Target]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=GRIFF-PC\SQLEXPRESS2014;initial catalog=dw;provider=SQLNCLI11.1;integrated security=SSPI"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+      <DTS:PropertyExpression DTS:Name="InitialCatalog">@[$Project::DatabaseDataWarehouse]</DTS:PropertyExpression>
+      <DTS:PropertyExpression DTS:Name="ServerName">@[$Project::ServerDataWarehouse]</DTS:PropertyExpression>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{CB86A7DC-5227-4182-8588-620D77B06926}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="NewCount">
+      <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{D67CCD29-1E56-47FD-8BB1-C97BA7FE500D}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="SQL Truncate PurchaseOrderDetail" DTS:refId="Package\SQL Truncate PurchaseOrderDetail" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="Target" SQLTask:SqlStatementSource="TRUNCATE TABLE [stg].[PurchaseOrderDetail]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{5D050940-2668-432B-8AEB-A00BDCB95AA9}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="DFT stg_PurchaseOrderDetail" DTS:refId="Package\DFT stg_PurchaseOrderDetail" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" version="1">
+          <components>
+            <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="SRC PurchaseOrderDetail" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail" usesDispositions="true" version="7">
+              <connections>
+                <connection connectionManagerID="{EEBB0B2D-CA1F-4A18-8CD7-CF7170D036D5}:external" connectionManagerRefId="Package.ConnectionManagers[Source]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Connections[OleDbConnection]"></connection>
+              </connections>
+              <outputs>
+                <output name="Output" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="PurchaseOrderID" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[PurchaseOrderID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="PurchaseOrderDetailID" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[PurchaseOrderDetailID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="DueDate" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[DueDate]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i2" name="OrderQty" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[OrderQty]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="ProductID" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[ProductID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="UnitPrice" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[UnitPrice]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="LineTotal" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[LineTotal]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="ReceivedQty" precision="8" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[ReceivedQty]" scale="2"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="RejectedQty" precision="8" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[RejectedQty]" scale="2"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="StockedQty" precision="9" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[StockedQty]" scale="2"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[PurchaseOrderID]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[PurchaseOrderID]" name="PurchaseOrderID" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[PurchaseOrderID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[PurchaseOrderDetailID]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[PurchaseOrderDetailID]" name="PurchaseOrderDetailID" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[PurchaseOrderDetailID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[DueDate]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[DueDate]" name="DueDate" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[DueDate]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i2" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[OrderQty]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[OrderQty]" name="OrderQty" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[OrderQty]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[ProductID]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[ProductID]" name="ProductID" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[ProductID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="cy" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[UnitPrice]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[UnitPrice]" name="UnitPrice" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[UnitPrice]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="cy" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[LineTotal]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[LineTotal]" name="LineTotal" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[LineTotal]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="numeric" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[ReceivedQty]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[ReceivedQty]" name="ReceivedQty" precision="8" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[ReceivedQty]" scale="2" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="numeric" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[RejectedQty]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[RejectedQty]" name="RejectedQty" precision="8" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[RejectedQty]" scale="2" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="numeric" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[StockedQty]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[StockedQty]" name="StockedQty" precision="9" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[StockedQty]" scale="2" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].ExternalColumns[ModifiedDate]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[ModifiedDate]" truncationRowDisposition="FailComponent"></outputColumn>
+                  </outputColumns>
+                </output>
+                <output isErrorOut="true" name="Error" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[PurchaseOrderID]" name="PurchaseOrderID" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[PurchaseOrderID]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[PurchaseOrderDetailID]" name="PurchaseOrderDetailID" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[PurchaseOrderDetailID]"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[DueDate]" name="DueDate" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[DueDate]"></outputColumn>
+                    <outputColumn dataType="i2" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[OrderQty]" name="OrderQty" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[OrderQty]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[ProductID]" name="ProductID" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[ProductID]"></outputColumn>
+                    <outputColumn dataType="cy" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[UnitPrice]" name="UnitPrice" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[UnitPrice]"></outputColumn>
+                    <outputColumn dataType="cy" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[LineTotal]" name="LineTotal" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[LineTotal]"></outputColumn>
+                    <outputColumn dataType="numeric" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[ReceivedQty]" name="ReceivedQty" precision="8" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[ReceivedQty]" scale="2"></outputColumn>
+                    <outputColumn dataType="numeric" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[RejectedQty]" name="RejectedQty" precision="8" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[RejectedQty]" scale="2"></outputColumn>
+                    <outputColumn dataType="numeric" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[StockedQty]" name="StockedQty" precision="9" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[StockedQty]" scale="2"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[ModifiedDate]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable"></property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [PurchaseOrderID], [PurchaseOrderDetailID], [DueDate], [OrderQty], [ProductID], [UnitPrice], [LineTotal], [ReceivedQty], [RejectedQty], [StockedQty], [ModifiedDate] FROM [dw].[PurchaseOrderDetail]</property>
+                <property dataType="System.String" description="The variable that contains the SQL command to be executed." name="SqlCommandVariable"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode" typeConverter="AccessMode">2</property>
+                <property dataType="System.String" description="The mappings between the parameters in the SQL command and variables." name="ParameterMapping"></property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.RowCount" contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0" name="Count Rows" refId="Package\DFT stg_PurchaseOrderDetail\Count Rows">
+              <inputs>
+                <input hasSideEffects="true" name="SRC PurchaseOrderDetail_Output_Count Rows" refId="Package\DFT stg_PurchaseOrderDetail\Count Rows.Inputs[SRC PurchaseOrderDetail_Output_Count Rows]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output name="Output" refId="Package\DFT stg_PurchaseOrderDetail\Count Rows.Outputs[Output]" synchronousInputId="Package\DFT stg_PurchaseOrderDetail\Count Rows.Inputs[SRC PurchaseOrderDetail_Output_Count Rows]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specifies the variable to hold the row count." name="VariableName">User::NewCount</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="DST PurchaseOrderDetail" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{2B4E0527-6B38-4273-891A-84E5AE88DCAB}:external" connectionManagerRefId="Package.ConnectionManagers[Target]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Count Rows_Output_DST PurchaseOrderDetail" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="PurchaseOrderID" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[PurchaseOrderID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="PurchaseOrderDetailID" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[PurchaseOrderDetailID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="DueDate" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[DueDate]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i2" name="OrderQty" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[OrderQty]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="ProductID" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[ProductID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="UnitPrice" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[UnitPrice]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="LineTotal" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[LineTotal]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="ReceivedQty" precision="8" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[ReceivedQty]" scale="2"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="RejectedQty" precision="8" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[RejectedQty]" scale="2"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="StockedQty" precision="9" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[StockedQty]" scale="2"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="i4" cachedName="PurchaseOrderID" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[PurchaseOrderID]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[PurchaseOrderID]" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].Columns[PurchaseOrderID]"></inputColumn>
+                    <inputColumn cachedDataType="dbTimeStamp" cachedName="DueDate" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[DueDate]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[DueDate]" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].Columns[DueDate]"></inputColumn>
+                    <inputColumn cachedDataType="i2" cachedName="OrderQty" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[OrderQty]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[OrderQty]" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].Columns[OrderQty]"></inputColumn>
+                    <inputColumn cachedDataType="i4" cachedName="ProductID" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[ProductID]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[ProductID]" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].Columns[ProductID]"></inputColumn>
+                    <inputColumn cachedDataType="cy" cachedName="UnitPrice" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[UnitPrice]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[UnitPrice]" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].Columns[UnitPrice]"></inputColumn>
+                    <inputColumn cachedDataType="cy" cachedName="LineTotal" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[LineTotal]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[LineTotal]" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].Columns[LineTotal]"></inputColumn>
+                    <inputColumn cachedDataType="numeric" cachedName="ReceivedQty" cachedPrecision="8" cachedScale="2" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[ReceivedQty]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[ReceivedQty]" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].Columns[ReceivedQty]"></inputColumn>
+                    <inputColumn cachedDataType="numeric" cachedName="RejectedQty" cachedPrecision="8" cachedScale="2" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[RejectedQty]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[RejectedQty]" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].Columns[RejectedQty]"></inputColumn>
+                    <inputColumn cachedDataType="numeric" cachedName="StockedQty" cachedPrecision="9" cachedScale="2" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[StockedQty]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[StockedQty]" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].Columns[StockedQty]"></inputColumn>
+                    <inputColumn cachedDataType="dbTimeStamp" cachedName="ModifiedDate" externalMetadataColumnId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].ExternalColumns[ModifiedDate]" lineageId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output].Columns[ModifiedDate]" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail].Columns[ModifiedDate]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Outputs[Error]" synchronousInputId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">[stg].[PurchaseOrderDetail]</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable"></property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\DFT stg_PurchaseOrderDetail\Count Rows.Inputs[SRC PurchaseOrderDetail_Output_Count Rows]" name="SRC PurchaseOrderDetail_Output_Count Rows" refId="Package\DFT stg_PurchaseOrderDetail.Paths[SRC PurchaseOrderDetail_Output_Count Rows]" startId="Package\DFT stg_PurchaseOrderDetail\SRC PurchaseOrderDetail.Outputs[Output]"></path>
+            <path endId="Package\DFT stg_PurchaseOrderDetail\DST PurchaseOrderDetail.Inputs[Count Rows_Output_DST PurchaseOrderDetail]" name="Count Rows_Output_DST PurchaseOrderDetail" refId="Package\DFT stg_PurchaseOrderDetail.Paths[Count Rows_Output_DST PurchaseOrderDetail]" startId="Package\DFT stg_PurchaseOrderDetail\Count Rows.Outputs[Output]"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{7E9CF588-DFFC-42B3-83C2-E355825F0463}" DTS:From="Package\SQL Truncate PurchaseOrderDetail" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_SQL Truncate PurchaseOrderDetail_To_DFT stg_PurchaseOrderDetail" DTS:refId="Package.PrecedenceConstraints[Constraint_SQL Truncate PurchaseOrderDetail_To_DFT stg_PurchaseOrderDetail]" DTS:To="Package\DFT stg_PurchaseOrderDetail"></DTS:PrecedenceConstraint>
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

@@ -1,0 +1,17 @@
+<#@ property name="SourceConn" type="String"#>
+<#@ property name="DestinationConn" type="String"#>
+<#@ property name="SourceSchema" type="String"#>
+<#@ property name="Table" type="AstTableNode"#>
+
+
+    <Dataflow Name="DFT <#=Table.Schema#>.<#=Table.Name#>">
+    <Transformations>
+         <OleDbSource Name="SRC <#=Table.Name#>" ConnectionName="<#=SourceConn#>">
+             <DirectInput>SELECT <#=Table.GetColumnList()#> FROM [<#=SourceSchema#>].[<#=Table.Name#>]</DirectInput>
+         </OleDbSource>
+         <RowCount Name="Count Rows" VariableName="User.NewCount"/>
+         <OleDbDestination Name="DST <#=Table.Name#>" ConnectionName="<#=DestinationConn#>">
+             <ExternalTableOutput Table="[<#=Table.Schema#>].[<#=Table.Name#>]"/>
+         </OleDbDestination>
+             </Transformations>
+    </Dataflow>

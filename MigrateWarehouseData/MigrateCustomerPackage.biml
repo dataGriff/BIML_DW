@@ -1,0 +1,69 @@
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <Connections>
+        <Connection Name="OldWarehouseNode" ConnectionString="Data Source=GRIFF-PC\SQLEXPRESS2014;Initial Catalog=ReportingOld;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+        <Connection Name="NewWarehouseNode" ConnectionString="Data Source=GRIFF-PC\SQLEXPRESS2014;Initial Catalog=ReportingNew;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+    </Connections>
+    <Packages>
+        <Package Name="MigrateCustomer" ConstraintMode="Linear" ProtectionLevel="DontSaveSensitive">
+            <Connections>
+                <Connection ConnectionName="OldWarehouseNode">
+                    <Expressions>
+                        <Expression ExternalProperty="InitalCatalog">@[$Project::OldWarehouseDatabase]</Expression>
+                        <Expression ExternalProperty="ServerName">@[$Project::OldWarehouseServer]</Expression>
+                    </Expressions>
+                </Connection>
+                <Connection ConnectionName="NewWarehouseNode">
+                    <Expressions>
+                        <Expression ExternalProperty="InitialCatalog">@[$Project::NewWarehouseDatabase]</Expression>
+                        <Expression ExternalProperty="ServerName">@[$Project::NewWarehouseServer]</Expression>
+                    </Expressions>
+                </Connection>
+            </Connections>
+            <Tasks>
+                <Container Name="Delete From New Tables" ConstraintMode="Parallel">
+                    <Expressions>
+                        <Expression ExternalProperty="Disable">!(@[$Project::PerformDeletion])</Expression>
+                    </Expressions>
+                    <Tasks>
+                        <ExecuteSQL Name="Prepare Table" ConnectionName="NewWarehouseNode">
+                            <DirectInput>
+                                TRUNCATE TABLE dbo.SomeTable;
+                            </DirectInput>
+                        </ExecuteSQL>
+                    </Tasks>
+                </Container>
+                <Container Name="Migrate To New Table" ConstraintMode="Linear">
+                    <Expressions>
+                        <Expression ExternalProperty="Disable">!(@[$Project::PerformMigration])</Expression>
+                    </Expressions>
+                    <Tasks>
+                        <Container Name="Migrate To New Table 1" ConstraintMode="Linear">
+                        </Container>
+                        <Container Name="Migrate To New Table 2" ConstraintMode="Linear">
+                        </Container>
+                        <Container Name="Migrate To New Table 3" ConstraintMode="Linear">
+                            <Tasks>
+                                <Dataflow Name="Migrate Table" DefaultBufferSize="104857600">
+                                    <Transformations>
+                                        <OleDbSource Name="Old Node" ConnectionName="OldWarehouseNode">
+                                            <DirectInput>
+                                                SELECT * FROM dbo.SomeTable WHERE CustomerID = ?;
+                                            </DirectInput>
+                                            <Parameters>
+                                                <Parameter Name="0" VariableName="MigrateWarehouseData.CustomerID" />
+                                            </Parameters>
+                                        </OleDbSource>
+                                        <OleDbDestination Name="New Node" ConnectionName="NewWarehouseNode" BatchSize="10000" KeepIdentity="true" UseFastLoadIfAvailable="true" MaximumInsertCommitSize="2000000">
+                                            <ExternalTableOutput Table="[dbo].[SomeTable]">
+                                            </ExternalTableOutput>
+                                        </OleDbDestination>
+                                    </Transformations>
+                                </Dataflow>
+                            </Tasks>
+                        </Container>
+                    </Tasks>
+                </Container>
+            </Tasks>
+        </Package>
+    </Packages>
+</Biml>

@@ -5,6 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "BIML_DW", "BIML_DW\BIML_DW.dtproj", "{2B270DDA-32EE-46F1-9179-4DC9BE83147C}"
 EndProject
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "TestProject1", "TestProject1\TestProject1.dtproj", "{E6524E00-D35A-4102-9328-3CDD251427BF}"
+EndProject
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "MigrateWarehouseData", "MigrateWarehouseData\MigrateWarehouseData.dtproj", "{5B2EFE0F-250D-4E44-8F7E-A43E8A39EEF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Development|Default = Development|Default
@@ -12,6 +16,10 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2B270DDA-32EE-46F1-9179-4DC9BE83147C}.Development|Default.ActiveCfg = Development
 		{2B270DDA-32EE-46F1-9179-4DC9BE83147C}.Development|Default.Build.0 = Development
+		{E6524E00-D35A-4102-9328-3CDD251427BF}.Development|Default.ActiveCfg = Development
+		{E6524E00-D35A-4102-9328-3CDD251427BF}.Development|Default.Build.0 = Development
+		{5B2EFE0F-250D-4E44-8F7E-A43E8A39EEF2}.Development|Default.ActiveCfg = Development
+		{5B2EFE0F-250D-4E44-8F7E-A43E8A39EEF2}.Development|Default.Build.0 = Development
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

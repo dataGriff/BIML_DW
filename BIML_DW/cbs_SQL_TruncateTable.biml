@@ -1,0 +1,5 @@
+<#@ property name="Conn" type="String"#>
+<#@ property name="Table" type="AstTableNode"#>
+    <ExecuteSQL Name="SQL Truncate <#=Table.Name#>" ConnectionName="<#=Conn#>">
+          <DirectInput>TRUNCATE TABLE [<#=Table.Schema#>].[<#=Table.Name#>]</DirectInput>
+    </ExecuteSQL>

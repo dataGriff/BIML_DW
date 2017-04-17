@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/17/2017 17:53:18" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="GRIFF-PC" DTS:CreatorName="griff182uk" DTS:DTSID="{4A6A9213-A25D-4A31-B350-8766EA02D980}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="2057" DTS:ObjectName="MigrateCustomer" DTS:ProtectionLevel="0" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{BC8D9049-F5D5-4428-8404-B11AD23F9534}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{EFE8166E-D6C6-411D-8C17-4A57D85280A9}" DTS:ObjectName="Source" DTS:refId="Package.ConnectionManagers[Source]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=GRIFF-PC\SQLEXPRESS2014;initial catalog=AdventureWorks2014;provider=SQLNCLI11.1;integrated security=SSPI"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+      <DTS:PropertyExpression DTS:Name="InitalCatalog">@[$Project::DatabaseSource]</DTS:PropertyExpression>
+      <DTS:PropertyExpression DTS:Name="ServerName">@[$Project::ServerSource]</DTS:PropertyExpression>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{323FD995-F470-4FDD-9F83-B58F6640137D}" DTS:ObjectName="Target" DTS:refId="Package.ConnectionManagers[Target]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=GRIFF-PC\SQLEXPRESS2014;initial catalog=dw;provider=SQLNCLI11.1;integrated security=SSPI"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+      <DTS:PropertyExpression DTS:Name="InitialCatalog">@[$Project::DatabaseDataWarehouse]</DTS:PropertyExpression>
+      <DTS:PropertyExpression DTS:Name="ServerName">@[$Project::ServerDataWarehouse]</DTS:PropertyExpression>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{4668FB8B-046F-489C-81E6-24428842F780}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="Prepare Table" DTS:refId="Package\Prepare Table" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="Target" SQLTask:SqlStatementSource="&#xA;                                TRUNCATE TABLE stg.PurchaseOrderDetail;&#xA;                            " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{ACB2FABE-4F10-4386-A3A9-C07B51A4698A}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="Migrate Table" DTS:refId="Package\Migrate Table" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" defaultBufferSize="104857600" version="1">
+          <components>
+            <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="Old Node" refId="Package\Migrate Table\Old Node" usesDispositions="true" version="7">
+              <connections>
+                <connection connectionManagerID="{EFE8166E-D6C6-411D-8C17-4A57D85280A9}:external" connectionManagerRefId="Package.ConnectionManagers[Source]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Migrate Table\Old Node.Connections[OleDbConnection]"></connection>
+              </connections>
+              <outputs>
+                <output name="Output" refId="Package\Migrate Table\Old Node.Outputs[Output]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="PurchaseOrderID" refId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[PurchaseOrderID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="PurchaseOrderDetailID" refId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[PurchaseOrderDetailID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="DueDate" refId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[DueDate]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i2" name="OrderQty" refId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[OrderQty]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="ProductID" refId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[ProductID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="UnitPrice" refId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[UnitPrice]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="LineTotal" refId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[LineTotal]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="ReceivedQty" precision="8" refId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[ReceivedQty]" scale="2"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="RejectedQty" precision="8" refId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[RejectedQty]" scale="2"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="StockedQty" precision="9" refId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[StockedQty]" scale="2"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[PurchaseOrderID]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[PurchaseOrderID]" name="PurchaseOrderID" refId="Package\Migrate Table\Old Node.Outputs[Output].Columns[PurchaseOrderID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[PurchaseOrderDetailID]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[PurchaseOrderDetailID]" name="PurchaseOrderDetailID" refId="Package\Migrate Table\Old Node.Outputs[Output].Columns[PurchaseOrderDetailID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[DueDate]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[DueDate]" name="DueDate" refId="Package\Migrate Table\Old Node.Outputs[Output].Columns[DueDate]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i2" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[OrderQty]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[OrderQty]" name="OrderQty" refId="Package\Migrate Table\Old Node.Outputs[Output].Columns[OrderQty]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[ProductID]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[ProductID]" name="ProductID" refId="Package\Migrate Table\Old Node.Outputs[Output].Columns[ProductID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="cy" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[UnitPrice]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[UnitPrice]" name="UnitPrice" refId="Package\Migrate Table\Old Node.Outputs[Output].Columns[UnitPrice]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="cy" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[LineTotal]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[LineTotal]" name="LineTotal" refId="Package\Migrate Table\Old Node.Outputs[Output].Columns[LineTotal]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="numeric" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[ReceivedQty]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[ReceivedQty]" name="ReceivedQty" precision="8" refId="Package\Migrate Table\Old Node.Outputs[Output].Columns[ReceivedQty]" scale="2" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="numeric" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[RejectedQty]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[RejectedQty]" name="RejectedQty" precision="8" refId="Package\Migrate Table\Old Node.Outputs[Output].Columns[RejectedQty]" scale="2" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="numeric" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[StockedQty]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[StockedQty]" name="StockedQty" precision="9" refId="Package\Migrate Table\Old Node.Outputs[Output].Columns[StockedQty]" scale="2" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\Migrate Table\Old Node.Outputs[Output].ExternalColumns[ModifiedDate]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\Migrate Table\Old Node.Outputs[Output].Columns[ModifiedDate]" truncationRowDisposition="FailComponent"></outputColumn>
+                  </outputColumns>
+                </output>
+                <output isErrorOut="true" name="Error" refId="Package\Migrate Table\Old Node.Outputs[Error]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[PurchaseOrderID]" name="PurchaseOrderID" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[PurchaseOrderID]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[PurchaseOrderDetailID]" name="PurchaseOrderDetailID" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[PurchaseOrderDetailID]"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[DueDate]" name="DueDate" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[DueDate]"></outputColumn>
+                    <outputColumn dataType="i2" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[OrderQty]" name="OrderQty" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[OrderQty]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[ProductID]" name="ProductID" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[ProductID]"></outputColumn>
+                    <outputColumn dataType="cy" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[UnitPrice]" name="UnitPrice" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[UnitPrice]"></outputColumn>
+                    <outputColumn dataType="cy" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[LineTotal]" name="LineTotal" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[LineTotal]"></outputColumn>
+                    <outputColumn dataType="numeric" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[ReceivedQty]" name="ReceivedQty" precision="8" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[ReceivedQty]" scale="2"></outputColumn>
+                    <outputColumn dataType="numeric" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[RejectedQty]" name="RejectedQty" precision="8" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[RejectedQty]" scale="2"></outputColumn>
+                    <outputColumn dataType="numeric" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[StockedQty]" name="StockedQty" precision="9" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[StockedQty]" scale="2"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[ModifiedDate]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Migrate Table\Old Node.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Migrate Table\Old Node.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable"></property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">
+                                                SELECT * FROM dw.PurchaseOrderDetail WHERE PurchaseOrderID = ?;
+                                            </property>
+                <property dataType="System.String" description="The variable that contains the SQL command to be executed." name="SqlCommandVariable"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode" typeConverter="AccessMode">2</property>
+                <property dataType="System.String" description="The mappings between the parameters in the SQL command and variables." name="ParameterMapping">"0",$Project::PurchaseOrderID;</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="New Node" refId="Package\Migrate Table\New Node" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{323FD995-F470-4FDD-9F83-B58F6640137D}:external" connectionManagerRefId="Package.ConnectionManagers[Target]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\Migrate Table\New Node.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Old Node_Output_New Node" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="PurchaseOrderID" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[PurchaseOrderID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="PurchaseOrderDetailID" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[PurchaseOrderDetailID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="DueDate" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[DueDate]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i2" name="OrderQty" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[OrderQty]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="ProductID" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[ProductID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="UnitPrice" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[UnitPrice]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="LineTotal" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[LineTotal]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="ReceivedQty" precision="8" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[ReceivedQty]" scale="2"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="RejectedQty" precision="8" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[RejectedQty]" scale="2"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="StockedQty" precision="9" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[StockedQty]" scale="2"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="i4" cachedName="PurchaseOrderID" externalMetadataColumnId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[PurchaseOrderID]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[PurchaseOrderID]" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].Columns[PurchaseOrderID]"></inputColumn>
+                    <inputColumn cachedDataType="i4" cachedName="PurchaseOrderDetailID" externalMetadataColumnId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[PurchaseOrderDetailID]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[PurchaseOrderDetailID]" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].Columns[PurchaseOrderDetailID]"></inputColumn>
+                    <inputColumn cachedDataType="dbTimeStamp" cachedName="DueDate" externalMetadataColumnId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[DueDate]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[DueDate]" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].Columns[DueDate]"></inputColumn>
+                    <inputColumn cachedDataType="i2" cachedName="OrderQty" externalMetadataColumnId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[OrderQty]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[OrderQty]" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].Columns[OrderQty]"></inputColumn>
+                    <inputColumn cachedDataType="i4" cachedName="ProductID" externalMetadataColumnId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[ProductID]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[ProductID]" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].Columns[ProductID]"></inputColumn>
+                    <inputColumn cachedDataType="cy" cachedName="UnitPrice" externalMetadataColumnId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[UnitPrice]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[UnitPrice]" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].Columns[UnitPrice]"></inputColumn>
+                    <inputColumn cachedDataType="cy" cachedName="LineTotal" externalMetadataColumnId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[LineTotal]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[LineTotal]" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].Columns[LineTotal]"></inputColumn>
+                    <inputColumn cachedDataType="numeric" cachedName="ReceivedQty" cachedPrecision="8" cachedScale="2" externalMetadataColumnId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[ReceivedQty]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[ReceivedQty]" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].Columns[ReceivedQty]"></inputColumn>
+                    <inputColumn cachedDataType="numeric" cachedName="RejectedQty" cachedPrecision="8" cachedScale="2" externalMetadataColumnId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[RejectedQty]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[RejectedQty]" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].Columns[RejectedQty]"></inputColumn>
+                    <inputColumn cachedDataType="numeric" cachedName="StockedQty" cachedPrecision="9" cachedScale="2" externalMetadataColumnId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[StockedQty]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[StockedQty]" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].Columns[StockedQty]"></inputColumn>
+                    <inputColumn cachedDataType="dbTimeStamp" cachedName="ModifiedDate" externalMetadataColumnId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].ExternalColumns[ModifiedDate]" lineageId="Package\Migrate Table\Old Node.Outputs[Output].Columns[ModifiedDate]" refId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node].Columns[ModifiedDate]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\Migrate Table\New Node.Outputs[Error]" synchronousInputId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\Migrate Table\New Node.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\Migrate Table\New Node.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\Migrate Table\New Node.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\Migrate Table\New Node.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">[stg].[PurchaseOrderDetail]</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable"></property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">true</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 10000</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2000000</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\Migrate Table\New Node.Inputs[Old Node_Output_New Node]" name="Old Node_Output_New Node" refId="Package\Migrate Table.Paths[Old Node_Output_New Node]" startId="Package\Migrate Table\Old Node.Outputs[Output]"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{BBDF175E-3099-453A-89D0-DC5536002379}" DTS:From="Package\Prepare Table" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_Prepare Table_To_Migrate Table" DTS:refId="Package.PrecedenceConstraints[Constraint_Prepare Table_To_Migrate Table]" DTS:To="Package\Migrate Table"></DTS:PrecedenceConstraint>
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

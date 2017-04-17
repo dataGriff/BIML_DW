@@ -1,0 +1,38 @@
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+  <Connections>
+    <OleDbConnection Name="Connection1" ConnectionString="Data Source=.;Initial Catalog=Test;Provider=SQLNCLI11;Integrated Security=SSPI;" CreateInProject="true" />
+  </Connections>
+  <Projects>
+    <PackageProject Name="TestProject1">
+      <Parameters>
+        <Parameter Name="Parameter1" DataType="String">SELECT 2</Parameter>
+        <Parameter Name="Parameter2" DataType="String">Foo</Parameter>
+      </Parameters>
+      <Packages>
+        <Package PackageName="TestPackage" />
+      </Packages>
+    </PackageProject>
+  </Projects>
+  <Packages>
+    <Package Name="TestPackage" ConstraintMode="Linear">
+      <Parameters>
+        <Parameter Name="Parameter2" DataType="String">WHERE 1=1</Parameter>
+        <Parameter Name="Parameter3" DataType="String">Bar</Parameter>
+      </Parameters>
+      <Tasks>
+        <ExecuteSQL Name="SQL Test ADONET" ConnectionName="Connection1">
+          <DirectInput>SELECT * FROM dbo.Test WHERE TestColumn2 = ? AND TestColumn3 = ? AND TestColumn4 = ?</DirectInput>
+          <Expressions>
+            <Expression ExternalProperty="SqlStatementSource">@[$Project::Parameter1] + " " + @[$Package::Parameter2]</Expression>
+          </Expressions>
+          <Parameters>
+            <Parameter Name="0" DataType="String" VariableName="TestProject1.Parameter2" Length="100" />
+            <!-- The next two parameters map to the same package parameter using both fully scoped and short name references -->
+            <Parameter Name="1" DataType="String" VariableName="TestPackage.Parameter3" Length="100" />
+            <Parameter Name="1" DataType="String" VariableName="Parameter3" Length="100" />
+          </Parameters>
+        </ExecuteSQL>
+      </Tasks>
+    </Package>
+  </Packages>
+</Biml>

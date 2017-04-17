@@ -1,0 +1,20 @@
+<#@ template language="C#" tier="1"#>
+
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+
+  <Connections>
+    <OleDbConnection Name="Source" ConnectionString="Data Source=GRIFF-PC\SQLEXPRESS2014;Initial Catalog=AdventureWorks2014;Provider=SQLNCLI11.1;Integrated Security=SSPI;">
+    </OleDbConnection>
+    <OleDbConnection Name="Target" ConnectionString="Data Source=GRIFF-PC\SQLEXPRESS2014;Initial Catalog=dw;Provider=SQLNCLI11.1;Integrated Security=SSPI;">
+    </OleDbConnection>
+  </Connections>
+  
+ <Databases>
+    <Database Name="dw" ConnectionName="Target" />
+  </Databases>
+  <Schemas>
+    <Schema Name="stg" DatabaseName="dw" />
+  </Schemas>
+      
+      
+</Biml>

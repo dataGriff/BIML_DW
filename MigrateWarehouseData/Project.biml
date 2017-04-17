@@ -1,0 +1,23 @@
+<#@ template language="C#" tier="3"#>
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+  <Projects>
+        <PackageProject Name="MigrateWarehouseData" ProtectionLevel="DontSaveSensitive">
+            <Parameters>
+                <Parameter Name="CustomerID" DataType="Int32">1234</Parameter>
+                <Parameter Name="ServerSource" DataType="String">GRIFF-PC\SQLEXPRESS2014</Parameter>
+                <Parameter Name="DatabaseSource" DataType="String">AdventureWorks2014</Parameter>
+                <Parameter Name="ServerDataWarehouse" DataType="String">GRIFF-PC\SQLEXPRESS2014</Parameter>
+                <Parameter Name="DatabaseDataWarehouse" DataType="String">dw</Parameter>
+                <Parameter Name="PerformMigration" DataType="Boolean">True</Parameter>
+                <Parameter Name="PerformDeletion" DataType="Boolean">True</Parameter>
+                <Parameter Name="PurchaseOrderID" DataType="Int32">1234</Parameter>
+            </Parameters>
+            <Packages>
+              <# foreach (var Table in RootNode.Tables) { #>
+                <Package PackageName="Stage<#=Table.Name#>" />
+                      <# } #>
+            </Packages>
+                  
+        </PackageProject>
+    </Projects>
+</Biml>

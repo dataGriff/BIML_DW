@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DTS:Executable DTS:CreationDate="04/17/2017 18:02:23" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="GRIFF-PC" DTS:CreatorName="griff182uk" DTS:DTSID="{41B251BA-118F-45F5-8E03-FEA7DBBFCB2A}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="2057" DTS:ObjectName="StageSalesOrderDetail" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{E03D20DA-BD4E-4B48-BE34-93CA6493A934}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+  <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{9880AF41-D0D1-4DCC-BE3F-9152903A89A9}" DTS:ObjectName="Source" DTS:refId="Package.ConnectionManagers[Source]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=GRIFF-PC\SQLEXPRESS2014;initial catalog=AdventureWorks2014;provider=SQLNCLI11.1;integrated security=SSPI"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+      <DTS:PropertyExpression DTS:Name="InitalCatalog">@[$Project::DatabaseSource]</DTS:PropertyExpression>
+      <DTS:PropertyExpression DTS:Name="ServerName">@[$Project::ServerSource]</DTS:PropertyExpression>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{AFE53C9F-EEB8-476D-AD3D-A25FE7EA0755}" DTS:ObjectName="Target" DTS:refId="Package.ConnectionManagers[Target]">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager DTS:ConnectionString="data source=GRIFF-PC\SQLEXPRESS2014;initial catalog=dw;provider=SQLNCLI11.1;integrated security=SSPI"></DTS:ConnectionManager>
+      </DTS:ObjectData>
+      <DTS:PropertyExpression DTS:Name="InitialCatalog">@[$Project::DatabaseDataWarehouse]</DTS:PropertyExpression>
+      <DTS:PropertyExpression DTS:Name="ServerName">@[$Project::ServerDataWarehouse]</DTS:PropertyExpression>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{8C100E67-9F6F-4DAA-9805-16CE4C539ADB}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="NewCount">
+      <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{AAC6B77B-F468-485C-BA5F-8E73FAEA1869}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="SQL Truncate SalesOrderDetail" DTS:refId="Package\SQL Truncate SalesOrderDetail" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData SQLTask:Connection="Target" SQLTask:SqlStatementSource="TRUNCATE TABLE [stg].[SalesOrderDetail]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{39EACD6E-8E76-4A28-810C-E900008C1615}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="DFT stg_SalesOrderDetail" DTS:refId="Package\DFT stg_SalesOrderDetail" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:ObjectData>
+        <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" version="1">
+          <components>
+            <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="SRC SalesOrderDetail" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail" usesDispositions="true" version="7">
+              <connections>
+                <connection connectionManagerID="{9880AF41-D0D1-4DCC-BE3F-9152903A89A9}:external" connectionManagerRefId="Package.ConnectionManagers[Source]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Connections[OleDbConnection]"></connection>
+              </connections>
+              <outputs>
+                <output name="Output" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="SalesOrderID" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[SalesOrderID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="SalesOrderDetailID" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[SalesOrderDetailID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="wstr" length="25" name="CarrierTrackingNumber" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[CarrierTrackingNumber]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i2" name="OrderQty" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[OrderQty]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="ProductID" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[ProductID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="SpecialOfferID" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[SpecialOfferID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="UnitPrice" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[UnitPrice]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="UnitPriceDiscount" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[UnitPriceDiscount]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="LineTotal" precision="38" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[LineTotal]" scale="6"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="guid" name="rowguid" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[SalesOrderID]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[SalesOrderID]" name="SalesOrderID" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[SalesOrderID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[SalesOrderDetailID]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[SalesOrderDetailID]" name="SalesOrderDetailID" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[SalesOrderDetailID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="wstr" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[CarrierTrackingNumber]" length="25" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[CarrierTrackingNumber]" name="CarrierTrackingNumber" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[CarrierTrackingNumber]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i2" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[OrderQty]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[OrderQty]" name="OrderQty" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[OrderQty]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[ProductID]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[ProductID]" name="ProductID" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[ProductID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="i4" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[SpecialOfferID]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[SpecialOfferID]" name="SpecialOfferID" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[SpecialOfferID]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="cy" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[UnitPrice]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[UnitPrice]" name="UnitPrice" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[UnitPrice]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="cy" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[UnitPriceDiscount]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[UnitPriceDiscount]" name="UnitPriceDiscount" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[UnitPriceDiscount]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="numeric" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[LineTotal]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[LineTotal]" name="LineTotal" precision="38" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[LineTotal]" scale="6" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="guid" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[rowguid]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[rowguid]" name="rowguid" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[rowguid]" truncationRowDisposition="FailComponent"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" errorOrTruncationOperation="Conversion" errorRowDisposition="FailComponent" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].ExternalColumns[ModifiedDate]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[ModifiedDate]" truncationRowDisposition="FailComponent"></outputColumn>
+                  </outputColumns>
+                </output>
+                <output isErrorOut="true" name="Error" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[SalesOrderID]" name="SalesOrderID" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[SalesOrderID]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[SalesOrderDetailID]" name="SalesOrderDetailID" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[SalesOrderDetailID]"></outputColumn>
+                    <outputColumn dataType="wstr" length="25" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[CarrierTrackingNumber]" name="CarrierTrackingNumber" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[CarrierTrackingNumber]"></outputColumn>
+                    <outputColumn dataType="i2" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[OrderQty]" name="OrderQty" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[OrderQty]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[ProductID]" name="ProductID" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[ProductID]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[SpecialOfferID]" name="SpecialOfferID" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[SpecialOfferID]"></outputColumn>
+                    <outputColumn dataType="cy" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[UnitPrice]" name="UnitPrice" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[UnitPrice]"></outputColumn>
+                    <outputColumn dataType="cy" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[UnitPriceDiscount]" name="UnitPriceDiscount" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[UnitPriceDiscount]"></outputColumn>
+                    <outputColumn dataType="numeric" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[LineTotal]" name="LineTotal" precision="38" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[LineTotal]" scale="6"></outputColumn>
+                    <outputColumn dataType="guid" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[rowguid]" name="rowguid" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[rowguid]"></outputColumn>
+                    <outputColumn dataType="dbTimeStamp" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[ModifiedDate]" name="ModifiedDate" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[ModifiedDate]"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset"></property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable"></property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT [SalesOrderID], [SalesOrderDetailID], [CarrierTrackingNumber], [OrderQty], [ProductID], [SpecialOfferID], [UnitPrice], [UnitPriceDiscount], [LineTotal], [rowguid], [ModifiedDate] FROM [dw].[SalesOrderDetail]</property>
+                <property dataType="System.String" description="The variable that contains the SQL command to be executed." name="SqlCommandVariable"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode" typeConverter="AccessMode">2</property>
+                <property dataType="System.String" description="The mappings between the parameters in the SQL command and variables." name="ParameterMapping"></property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.RowCount" contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0" name="Count Rows" refId="Package\DFT stg_SalesOrderDetail\Count Rows">
+              <inputs>
+                <input hasSideEffects="true" name="SRC SalesOrderDetail_Output_Count Rows" refId="Package\DFT stg_SalesOrderDetail\Count Rows.Inputs[SRC SalesOrderDetail_Output_Count Rows]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output name="Output" refId="Package\DFT stg_SalesOrderDetail\Count Rows.Outputs[Output]" synchronousInputId="Package\DFT stg_SalesOrderDetail\Count Rows.Inputs[SRC SalesOrderDetail_Output_Count Rows]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.String" description="Specifies the variable to hold the row count." name="VariableName">User::NewCount</property>
+              </properties>
+            </component>
+            <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="DST SalesOrderDetail" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail" usesDispositions="true" version="4">
+              <connections>
+                <connection connectionManagerID="{AFE53C9F-EEB8-476D-AD3D-A25FE7EA0755}:external" connectionManagerRefId="Package.ConnectionManagers[Target]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Connections[OleDbConnection]"></connection>
+              </connections>
+              <inputs>
+                <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Count Rows_Output_DST SalesOrderDetail" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail]">
+                  <externalMetadataColumns isUsed="True">
+                    <externalMetadataColumn dataType="i4" name="SalesOrderID" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[SalesOrderID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="SalesOrderDetailID" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[SalesOrderDetailID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="wstr" length="25" name="CarrierTrackingNumber" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[CarrierTrackingNumber]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i2" name="OrderQty" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[OrderQty]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="ProductID" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[ProductID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="i4" name="SpecialOfferID" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[SpecialOfferID]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="UnitPrice" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[UnitPrice]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="cy" name="UnitPriceDiscount" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[UnitPriceDiscount]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="numeric" name="LineTotal" precision="38" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[LineTotal]" scale="6"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="guid" name="rowguid" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[rowguid]"></externalMetadataColumn>
+                    <externalMetadataColumn dataType="dbTimeStamp" name="ModifiedDate" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[ModifiedDate]"></externalMetadataColumn>
+                  </externalMetadataColumns>
+                  <inputColumns>
+                    <inputColumn cachedDataType="i4" cachedName="SalesOrderID" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[SalesOrderID]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[SalesOrderID]" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].Columns[SalesOrderID]"></inputColumn>
+                    <inputColumn cachedDataType="wstr" cachedLength="25" cachedName="CarrierTrackingNumber" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[CarrierTrackingNumber]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[CarrierTrackingNumber]" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].Columns[CarrierTrackingNumber]"></inputColumn>
+                    <inputColumn cachedDataType="i2" cachedName="OrderQty" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[OrderQty]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[OrderQty]" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].Columns[OrderQty]"></inputColumn>
+                    <inputColumn cachedDataType="i4" cachedName="ProductID" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[ProductID]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[ProductID]" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].Columns[ProductID]"></inputColumn>
+                    <inputColumn cachedDataType="i4" cachedName="SpecialOfferID" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[SpecialOfferID]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[SpecialOfferID]" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].Columns[SpecialOfferID]"></inputColumn>
+                    <inputColumn cachedDataType="cy" cachedName="UnitPrice" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[UnitPrice]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[UnitPrice]" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].Columns[UnitPrice]"></inputColumn>
+                    <inputColumn cachedDataType="cy" cachedName="UnitPriceDiscount" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[UnitPriceDiscount]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[UnitPriceDiscount]" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].Columns[UnitPriceDiscount]"></inputColumn>
+                    <inputColumn cachedDataType="numeric" cachedName="LineTotal" cachedPrecision="38" cachedScale="6" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[LineTotal]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[LineTotal]" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].Columns[LineTotal]"></inputColumn>
+                    <inputColumn cachedDataType="guid" cachedName="rowguid" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[rowguid]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[rowguid]" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].Columns[rowguid]"></inputColumn>
+                    <inputColumn cachedDataType="dbTimeStamp" cachedName="ModifiedDate" externalMetadataColumnId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].ExternalColumns[ModifiedDate]" lineageId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output].Columns[ModifiedDate]" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail].Columns[ModifiedDate]"></inputColumn>
+                  </inputColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output exclusionGroup="1" isErrorOut="true" name="Error" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Outputs[Error]" synchronousInputId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail]">
+                  <externalMetadataColumns></externalMetadataColumns>
+                  <outputColumns>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Outputs[Error].Columns[ErrorCode]" name="ErrorCode" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Outputs[Error].Columns[ErrorCode]" specialFlags="1"></outputColumn>
+                    <outputColumn dataType="i4" lineageId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Outputs[Error].Columns[ErrorColumn]" name="ErrorColumn" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Outputs[Error].Columns[ErrorColumn]" specialFlags="2"></outputColumn>
+                  </outputColumns>
+                </output>
+              </outputs>
+              <properties>
+                <property dataType="System.Int32" description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out." name="CommandTimeout">0</property>
+                <property dataType="System.String" description="Specifies the name of the database object used to open a rowset." name="OpenRowset">[stg].[SalesOrderDetail]</property>
+                <property dataType="System.String" description="Specifies the variable that contains the name of the database object used to open a rowset." name="OpenRowsetVariable"></property>
+                <property dataType="System.String" description="The SQL command to be executed." name="SqlCommand" UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property dataType="System.Int32" description="Specifies the column code page to use when code page information is unavailable from the data source." name="DefaultCodePage">1252</property>
+                <property dataType="System.Boolean" description="Forces the use of the DefaultCodePage property value when describing character data." name="AlwaysUseDefaultCodePage">false</property>
+                <property dataType="System.Int32" description="Specifies the mode used to access the database." name="AccessMode">3</property>
+                <property dataType="System.Boolean" description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on." name="FastLoadKeepIdentity">false</property>
+                <property dataType="System.Boolean" description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on." name="FastLoadKeepNulls">false</property>
+                <property dataType="System.String" description="Specifies options to be used with fast load.  Applies only if fast load is turned on." name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property dataType="System.Int32" description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on." name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+            </component>
+          </components>
+          <paths>
+            <path endId="Package\DFT stg_SalesOrderDetail\Count Rows.Inputs[SRC SalesOrderDetail_Output_Count Rows]" name="SRC SalesOrderDetail_Output_Count Rows" refId="Package\DFT stg_SalesOrderDetail.Paths[SRC SalesOrderDetail_Output_Count Rows]" startId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output]"></path>
+            <path endId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail]" name="Count Rows_Output_DST SalesOrderDetail" refId="Package\DFT stg_SalesOrderDetail.Paths[Count Rows_Output_DST SalesOrderDetail]" startId="Package\DFT stg_SalesOrderDetail\Count Rows.Outputs[Output]"></path>
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{9EFFBB2A-5AA8-411B-A820-09C99E811EB5}" DTS:From="Package\SQL Truncate SalesOrderDetail" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_SQL Truncate SalesOrderDetail_To_DFT stg_SalesOrderDetail" DTS:refId="Package.PrecedenceConstraints[Constraint_SQL Truncate SalesOrderDetail_To_DFT stg_SalesOrderDetail]" DTS:To="Package\DFT stg_SalesOrderDetail"></DTS:PrecedenceConstraint>
+  </DTS:PrecedenceConstraints>
+</DTS:Executable>

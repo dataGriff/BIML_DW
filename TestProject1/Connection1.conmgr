@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ConnectionManager p1:ObjectName="Connection1" p1:DTSID="{8F25D8F3-A017-406E-94D5-27F59366ABC4}" p1:refId="Package.ConnectionManagers[Connection1]" p1:CreationName="OLEDB" xmlns:p1="www.microsoft.com/SqlServer/Dts" xmlns="www.microsoft.com/SqlServer/Dts">
+  <ObjectData>
+    <DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts" DTS:ConnectionString="data source=.;initial catalog=Test;provider=SQLNCLI11;integrated security=SSPI"></DTS:ConnectionManager>
+  </ObjectData>
+</ConnectionManager>
