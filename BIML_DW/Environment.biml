@@ -1,19 +1,21 @@
 <#@ template language="C#" tier="1"#>
-
+<#@ include file="Variables.biml"  #> 
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
 
   <Connections>
-    <OleDbConnection Name="Source" ConnectionString="Data Source=GRIFF-PC\SQLEXPRESS2014;Initial Catalog=AdventureWorks2014;Provider=SQLNCLI11.1;Integrated Security=SSPI;">
+    <OleDbConnection Name="Source" ConnectionString="<#=sourceConn#>">
     </OleDbConnection>
-    <OleDbConnection Name="Target" ConnectionString="Data Source=GRIFF-PC\SQLEXPRESS2014;Initial Catalog=dw;Provider=SQLNCLI11.1;Integrated Security=SSPI;">
+    <OleDbConnection Name="Target" ConnectionString="<#=destinationConn#>">
     </OleDbConnection>
   </Connections>
   
  <Databases>
     <Database Name="dw" ConnectionName="Target" />
+        <Database Name="AdventureWorks2014" ConnectionName="Source" />
   </Databases>
   <Schemas>
-    <Schema Name="stg" DatabaseName="dw" />
+    <Schema Name="<#=stageSchema#>" DatabaseName="dw" />
+        <Schema Name="<#=sourceSchema#>" DatabaseName="AdventureWorks2014" />
   </Schemas>
       
       

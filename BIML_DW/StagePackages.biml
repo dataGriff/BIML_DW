@@ -1,6 +1,7 @@
 <#@ import namespace="System.Data" #>
 <#@ import namespace="System.Data.SqlClient" #>
 <#@ template language="C#" tier="4"#>
+<#@ include file="Variables.biml"  #> 
 
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
 
@@ -29,7 +30,7 @@
             
             <Tasks>
     	<#=CallBimlScript("cbs_SQL_TruncateTable.biml", "Target", Table) #>
-    	<#=CallBimlScript("cbs_DFT_RowCount.biml", "Source","Target","dw", Table) #>
+    	<#=CallBimlScript("cbs_DFT_RowCount.biml", "Source","Target",sourceSchema, Table) #>
              
             </Tasks>
         </Package>

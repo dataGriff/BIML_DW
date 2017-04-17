@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">GRIFF-PC</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAdv6PCP1lsEKRpjmJQ3fZyAAAAAACAAAAAAAQZgAAAAEAACAAAADiM3zzFWeHYeN9SRMXAQFw/cHvqYuoUYGWE5+lecSAJAAAAAAOgAAAAAIAACAAAABj/2h3pWAmPJ0Yd5/XvNKdo84ErQ1snAgWlpbd8G30pJAAAABfobzux3aUlEZw2k6CF53Wh8F3qDdeDSevH0rNiL5F3n25EBbtMM0KRI90Sh9yIp0adiiRLhq+H9MzavQo8DK/6XioeclFPYvfAV3YvZHoXxZblbdX/4VHAWUl4n9X6hCg7kqKOsiED3vUEk2tmCw3yZyn7Oz/DogHaH7IJ+SRTdIpWzVcRJHHff15dAzd7E1AAAAAaWfTtuS9I18MUsKyaBimNrbgrLpel/Afhcnlrj7tkUjK/m/Jcz2qBd/qxNrb9HA3PzZYnpaIOOfjchEq5Faj2w==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAdv6PCP1lsEKRpjmJQ3fZyAAAAAACAAAAAAAQZgAAAAEAACAAAAAJCRIcu61bABT7sJQIQYVh136PpVdue3jD26qItvuavQAAAAAOgAAAAAIAACAAAABuPdOzlun+Vt2BzZzXPWbIPvxH2FzzyP3kNz5tMZ7wq5AAAAAeslxkHR965yHZh+qEoZKc0/jjayc75h0fYGJWEatG1+DAYooVN3Trc1dA7zWbNSV4hATLEA1wDKmTzMDPMUGlHK7yr1KY0D0AnrAfUH9RC8zTyy6yim6cy1wpNthXd+SOAfP6QF0nqG7WxF6TjeEzvUx4FTOW2ZYS1Q0Gg9HDNNH69OF869+i8mnnh9NCP79AAAAAVi+Jhvss29tnHP0DKrGKPTa0FKe8h4sNmMbpiypxS6IWMCEyBAcG8t4+1ZQr7FSe4cM+zhEMQfbEILlONhv7Rw==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -146,14 +146,14 @@
             </SSIS:PackageMetaData>
             <SSIS:PackageMetaData SSIS:Name="StagePurchaseOrderDetail.dtsx">
               <SSIS:Properties>
-                <SSIS:Property SSIS:Name="ID">{5EC92399-99A6-4459-8B71-488833F47ABC}</SSIS:Property>
+                <SSIS:Property SSIS:Name="ID">{2CEA20BD-9F5E-4F0C-B414-89AC0326F5B9}</SSIS:Property>
                 <SSIS:Property SSIS:Name="Name">StagePurchaseOrderDetail</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionBuild">0</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{FE3E0B00-C4AF-483D-9DBA-C9AB2BEBC763}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{DC2C4D72-E511-42D4-B7A6-C5DC2835F8A6}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -244,7 +244,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">data source=GRIFF-PC\SQLEXPRESS2014;initial catalog=dw;provider=SQLNCLI11.1;integrated security=SSPI;</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">server=GRIFF-PC\SQLEXPRESS2014;initial catalog=dw;provider=SQLNCLI11.1;integrated security=SSPI;</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -450,6 +450,10 @@
   <ControlFlowParts />
   <Miscellaneous>
     <ProjectItem>
+      <Name>Variables.biml</Name>
+      <FullPath>Variables.biml</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>cbs_DFT_RowCount.biml</Name>
       <FullPath>cbs_DFT_RowCount.biml</FullPath>
     </ProjectItem>
@@ -462,12 +466,16 @@
       <FullPath>Environment.biml</FullPath>
     </ProjectItem>
     <ProjectItem>
+      <Name>Project.biml</Name>
+      <FullPath>Project.biml</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>StagePackages.biml</Name>
       <FullPath>StagePackages.biml</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>Project.biml</Name>
-      <FullPath>Project.biml</FullPath>
+      <Name>TableDeploy.biml</Name>
+      <FullPath>TableDeploy.biml</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>TableMetadata.biml</Name>
@@ -476,10 +484,6 @@
     <ProjectItem>
       <Name>WriteAll.biml</Name>
       <FullPath>WriteAll.biml</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>TableDeploy.biml</Name>
-      <FullPath>TableDeploy.biml</FullPath>
     </ProjectItem>
   </Miscellaneous>
   <Configurations>

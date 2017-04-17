@@ -1,40 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DTS:Executable DTS:CreationDate="04/17/2017 18:05:00" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="GRIFF-PC" DTS:CreatorName="griff182uk" DTS:DTSID="{BFDBDF33-89E0-4A8D-896F-783E23AA3144}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="2057" DTS:ObjectName="StageSalesOrderDetail" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{77E92F58-B055-43B2-BD9C-D170D4301182}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
+<DTS:Executable DTS:CreationDate="04/17/2017 18:30:22" DTS:CreationName="Microsoft.Package" DTS:CreatorComputerName="GRIFF-PC" DTS:CreatorName="griff182uk" DTS:DTSID="{49BC3546-C5F6-480B-81E5-89C4975685F1}" DTS:ExecutableType="Microsoft.Package" DTS:LastModifiedProductVersion="" DTS:LocaleID="2057" DTS:ObjectName="StageSalesOrderDetail" DTS:refId="Package" DTS:VersionBuild="0" DTS:VersionGUID="{BF61C021-9017-4C7C-91FE-237F6AAD3BF8}" DTS:VersionMajor="0" xmlns:DTS="www.microsoft.com/SqlServer/Dts">
   <DTS:Property DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
-    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{DA8ABB8F-8362-4550-93FB-EA037365A2BD}" DTS:ObjectName="Source" DTS:refId="Package.ConnectionManagers[Source]">
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{47BD8F2B-6885-4021-898A-9549C5E35EAA}" DTS:ObjectName="Source" DTS:refId="Package.ConnectionManagers[Source]">
       <DTS:ObjectData>
-        <DTS:ConnectionManager DTS:ConnectionString="data source=GRIFF-PC\SQLEXPRESS2014;initial catalog=AdventureWorks2014;provider=SQLNCLI11.1;integrated security=SSPI"></DTS:ConnectionManager>
+        <DTS:ConnectionManager DTS:ConnectionString="server=GRIFF-PC\SQLEXPRESS2014;initial catalog=AdventureWorks2014;provider=SQLNCLI11.1;integrated security=SSPI"></DTS:ConnectionManager>
       </DTS:ObjectData>
       <DTS:PropertyExpression DTS:Name="InitalCatalog">@[$Project::DatabaseSource]</DTS:PropertyExpression>
       <DTS:PropertyExpression DTS:Name="ServerName">@[$Project::ServerSource]</DTS:PropertyExpression>
     </DTS:ConnectionManager>
-    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{07104D6B-48EE-4144-B003-F57EA9C9D293}" DTS:ObjectName="Target" DTS:refId="Package.ConnectionManagers[Target]">
+    <DTS:ConnectionManager DTS:CreationName="OLEDB" DTS:DTSID="{198CB4D5-6077-46BC-91EA-17D4006904D8}" DTS:ObjectName="Target" DTS:refId="Package.ConnectionManagers[Target]">
       <DTS:ObjectData>
-        <DTS:ConnectionManager DTS:ConnectionString="data source=GRIFF-PC\SQLEXPRESS2014;initial catalog=dw;provider=SQLNCLI11.1;integrated security=SSPI"></DTS:ConnectionManager>
+        <DTS:ConnectionManager DTS:ConnectionString="server=GRIFF-PC\SQLEXPRESS2014;initial catalog=dw;provider=SQLNCLI11.1;integrated security=SSPI"></DTS:ConnectionManager>
       </DTS:ObjectData>
       <DTS:PropertyExpression DTS:Name="InitialCatalog">@[$Project::DatabaseDataWarehouse]</DTS:PropertyExpression>
       <DTS:PropertyExpression DTS:Name="ServerName">@[$Project::ServerDataWarehouse]</DTS:PropertyExpression>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
   <DTS:Variables>
-    <DTS:Variable DTS:CreationName="" DTS:DTSID="{4038B9FC-4360-4713-91E8-7D209FCCEF80}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="NewCount">
+    <DTS:Variable DTS:CreationName="" DTS:DTSID="{F0F522EF-9D95-4E78-BB60-610C8C3A2BE9}" DTS:IncludeInDebugDump="6789" DTS:Namespace="User" DTS:ObjectName="NewCount">
       <DTS:VariableValue DTS:DataType="20">0</DTS:VariableValue>
     </DTS:Variable>
   </DTS:Variables>
   <DTS:Executables>
-    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{A6BC24B7-2C0D-4AF3-9ED7-D7B1F84531E7}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="SQL Truncate SalesOrderDetail" DTS:refId="Package\SQL Truncate SalesOrderDetail" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.ExecuteSQLTask" DTS:DTSID="{17CB6D92-85CA-4ECF-BD12-C8B2D47A3F10}" DTS:ExecutableType="Microsoft.ExecuteSQLTask" DTS:LocaleID="-1" DTS:ObjectName="SQL Truncate SalesOrderDetail" DTS:refId="Package\SQL Truncate SalesOrderDetail" DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <SQLTask:SqlTaskData SQLTask:Connection="Target" SQLTask:SqlStatementSource="TRUNCATE TABLE [stg].[SalesOrderDetail]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask"></SQLTask:SqlTaskData>
       </DTS:ObjectData>
     </DTS:Executable>
-    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{907D57F7-8BE0-4058-995D-1322C561808B}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="DFT stg_SalesOrderDetail" DTS:refId="Package\DFT stg_SalesOrderDetail" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+    <DTS:Executable DTS:CreationName="Microsoft.Pipeline" DTS:DTSID="{3AE22E50-CB41-4D23-9C0C-B65900953E17}" DTS:ExecutableType="Microsoft.Pipeline" DTS:LocaleID="-1" DTS:ObjectName="DFT stg_SalesOrderDetail" DTS:refId="Package\DFT stg_SalesOrderDetail" DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
       <DTS:ObjectData>
         <pipeline BLOBTempStoragePath="" bufferTempStoragePath="" version="1">
           <components>
             <component componentClassID="Microsoft.OLEDBSource" contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7" name="SRC SalesOrderDetail" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail" usesDispositions="true" version="7">
               <connections>
-                <connection connectionManagerID="{DA8ABB8F-8362-4550-93FB-EA037365A2BD}:external" connectionManagerRefId="Package.ConnectionManagers[Source]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Connections[OleDbConnection]"></connection>
+                <connection connectionManagerID="{47BD8F2B-6885-4021-898A-9549C5E35EAA}:external" connectionManagerRefId="Package.ConnectionManagers[Source]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Connections[OleDbConnection]"></connection>
               </connections>
               <outputs>
                 <output name="Output" refId="Package\DFT stg_SalesOrderDetail\SRC SalesOrderDetail.Outputs[Output]">
@@ -113,7 +113,7 @@
             </component>
             <component componentClassID="Microsoft.OLEDBDestination" contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4" name="DST SalesOrderDetail" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail" usesDispositions="true" version="4">
               <connections>
-                <connection connectionManagerID="{07104D6B-48EE-4144-B003-F57EA9C9D293}:external" connectionManagerRefId="Package.ConnectionManagers[Target]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Connections[OleDbConnection]"></connection>
+                <connection connectionManagerID="{198CB4D5-6077-46BC-91EA-17D4006904D8}:external" connectionManagerRefId="Package.ConnectionManagers[Target]" description="The OLE DB runtime connection used to access the database." name="OleDbConnection" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Connections[OleDbConnection]"></connection>
               </connections>
               <inputs>
                 <input errorOrTruncationOperation="Insert" errorRowDisposition="FailComponent" hasSideEffects="true" name="Count Rows_Output_DST SalesOrderDetail" refId="Package\DFT stg_SalesOrderDetail\DST SalesOrderDetail.Inputs[Count Rows_Output_DST SalesOrderDetail]">
@@ -177,6 +177,6 @@
     </DTS:Executable>
   </DTS:Executables>
   <DTS:PrecedenceConstraints>
-    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{4C32D18C-A576-40DD-9A44-AD1B4D5DED85}" DTS:From="Package\SQL Truncate SalesOrderDetail" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_SQL Truncate SalesOrderDetail_To_DFT stg_SalesOrderDetail" DTS:refId="Package.PrecedenceConstraints[Constraint_SQL Truncate SalesOrderDetail_To_DFT stg_SalesOrderDetail]" DTS:To="Package\DFT stg_SalesOrderDetail"></DTS:PrecedenceConstraint>
+    <DTS:PrecedenceConstraint DTS:CreationName="" DTS:DTSID="{89E65701-852A-4A9B-9AC4-793A5B4CCFB7}" DTS:From="Package\SQL Truncate SalesOrderDetail" DTS:LogicalAnd="True" DTS:ObjectName="Constraint_SQL Truncate SalesOrderDetail_To_DFT stg_SalesOrderDetail" DTS:refId="Package.PrecedenceConstraints[Constraint_SQL Truncate SalesOrderDetail_To_DFT stg_SalesOrderDetail]" DTS:To="Package\DFT stg_SalesOrderDetail"></DTS:PrecedenceConstraint>
   </DTS:PrecedenceConstraints>
 </DTS:Executable>

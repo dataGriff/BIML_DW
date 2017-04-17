@@ -1,0 +1,13 @@
+<#
+string serverSource = "GRIFF-PC\\SQLEXPRESS2014";
+string databaseSource = "AdventureWorks2014";
+string serverDataWarehouse = "GRIFF-PC\\SQLEXPRESS2014";
+string databaseDataWarehouse = "dw";
+
+var sourceConn = "Server="+serverSource+";Initial Catalog="+databaseSource+";Provider=SQLNCLI11.1;Integrated Security=SSPI;" ;
+var destinationConn = "Server="+serverDataWarehouse+";Initial Catalog="+databaseDataWarehouse+";Provider=SQLNCLI11.1;Integrated Security=SSPI;" ;
+
+string sourceSchema ="dw";
+string stageSchema ="stg";
+
+#>
