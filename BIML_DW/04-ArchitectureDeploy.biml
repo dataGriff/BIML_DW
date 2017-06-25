@@ -1,0 +1,50 @@
+<#@ template tier="4" #>
+<#@ include file="Variables.biml"  #> 
+<#@ assembly name="%WINDIR%\\Microsoft.NET\\Framework\\v2.0.50727\\System.Windows.Forms.dll" #>
+<#@ import namespace="System.Windows.Forms" #>
+<#@ include file="Utilities.biml"  #> 
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+
+
+  <Packages>
+    <Package Name="MasterArchitectureDeploy" ConstraintMode="Parallel"  ProtectionLevel="EncryptSensitiveWithUserKey">
+      <Tasks>
+      <#string userName = GetUserName(); #>
+       <#string date = GetDate(); #>
+      
+      <#=CallBimlScript("cbs_SQL_CreateSchema.biml", "Staging", schemaProcess) #>
+       <#=CallBimlScript("cbs_SQL_CreateSchema.biml", "DataWarehouse", schemaDataWarehouse) #>
+      
+        <# foreach (var table in RootNode.Tables) { #>
+        <ExecuteSQL Name="SQL Create Stage <#=table.Name#>" ConnectionName="Staging">
+          <DirectInput><#=table.GetDropAndCreateDdl()#>
+                EXEC sys.sp_addextendedproperty @name=N'Description'
+                , @value=N'Staging table for <#=table.Name#> information ready to transfer into data warehouse tables.' 
+                , @level0type=N'SCHEMA',@level0name=N'<#=schemaStage#>'
+                , @level1type=N'TABLE'
+                ,@level1name=N'<#=table.Name#>'
+                GO
+              
+          </DirectInput>
+        </ExecuteSQL>
+        
+    <ExecuteSQL Name="SQL Create DataWarehouse <#=table.Name#>" ConnectionName="DataWarehouse">
+          <DirectInput><#=table.GetDropAndCreateDdl().Replace(schemaStage,schemaDataWarehouse)#>
+              
+                        EXEC sys.sp_addextendedproperty @name=N'Description'
+                , @value=N'Data warehouse table holding <#=table.Name#> information that should not be accessed directly by end users.' 
+                , @level0type=N'SCHEMA',@level0name=N'<#=schemaDataWarehouse#>'
+                , @level1type=N'TABLE'
+                ,@level1name=N'<#=table.Name#>'
+                GO
+              
+          </DirectInput>
+        </ExecuteSQL>
+        
+       	<#=CallBimlScript("cbs_SQL_CreateMergeProcedure.biml", "Staging", table, userName, date, schemaDataWarehouse, schemaStage, schemaProcess) #>
+        
+        <# } #>
+      </Tasks>
+    </Package>
+  </Packages>
+</Biml>

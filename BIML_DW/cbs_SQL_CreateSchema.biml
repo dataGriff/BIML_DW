@@ -1,0 +1,9 @@
+<#@ property name="Conn" type="String"#>
+<#@ property name="Schema" type="String"#>
+    <ExecuteSQL Name="SQL Create Schema <#=Schema#>" ConnectionName="<#=Conn#>">
+          <DirectInput>
+          CREATE SCHEMA <#=Schema#>
+          AUTHORIZATION dbo;
+              
+          </DirectInput>
+    </ExecuteSQL>

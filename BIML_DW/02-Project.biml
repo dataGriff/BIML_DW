@@ -1,0 +1,24 @@
+<#@ template language="C#" tier="3"#>
+<#@ include file="Variables.biml"  #> 
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+  <Projects>
+        <PackageProject Name="MigrateWarehouseData" ProtectionLevel="DontSaveSensitive">
+            <Parameters>
+                <Parameter Name="ServerSource01" DataType="String"><#=serverSource01#></Parameter>
+                <Parameter Name="DatabaseSource01" DataType="String"><#=databaseSource01#></Parameter>
+                <Parameter Name="ServerSource02" DataType="String"><#=serverSource02#></Parameter>
+                <Parameter Name="DatabaseSource02" DataType="String"><#=databaseSource02#></Parameter>
+                <Parameter Name="ServerDataWarehouse" DataType="String"><#=serverDataWarehouse#></Parameter>
+                <Parameter Name="DatabaseStaging" DataType="String"><#=databaseStaging#></Parameter>
+            </Parameters>
+            <Packages>
+             <!-- <# foreach (var Table in RootNode.Tables) { #>
+                <Package PackageName="Stage<#=Table.Name#>" />
+                      <# } #>-->
+                  <Package PackageName="MasterArchitectureDeploy" />       
+                          
+            </Packages>
+                  
+        </PackageProject>
+    </Projects>
+</Biml>

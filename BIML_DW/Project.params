@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <SSIS:Parameters xmlns:SSIS="www.microsoft.com/SqlServer/SSIS">
   <SSIS:Parameter
-    SSIS:Name="DatabaseDataWarehouse">
+    SSIS:Name="DatabaseStaging">
     <SSIS:Properties>
       <SSIS:Property
         SSIS:Name="ID">{9f5553d6-ee92-471f-8bfa-9aa7f8a8c0dc}</SSIS:Property>
@@ -43,7 +43,7 @@
     </SSIS:Properties>
   </SSIS:Parameter>
   <SSIS:Parameter
-    SSIS:Name="ServerSource">
+    SSIS:Name="ServerSource01">
     <SSIS:Properties>
       <SSIS:Property
         SSIS:Name="ID">{0ddae470-a3c2-4148-b5dc-551ead875093}</SSIS:Property>
@@ -64,7 +64,7 @@
     </SSIS:Properties>
   </SSIS:Parameter>
   <SSIS:Parameter
-    SSIS:Name="DatabaseSource">
+    SSIS:Name="DatabaseSource01">
     <SSIS:Properties>
       <SSIS:Property
         SSIS:Name="ID">{5e5b6b0c-b1bb-4f70-9b17-49e98bdbf34e}</SSIS:Property>
@@ -80,6 +80,48 @@
         SSIS:Name="Sensitive">0</SSIS:Property>
       <SSIS:Property
         SSIS:Name="Value">AdventureWorks2014</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="DataType">18</SSIS:Property>
+    </SSIS:Properties>
+  </SSIS:Parameter>
+  <SSIS:Parameter
+    SSIS:Name="ServerSource02">
+    <SSIS:Properties>
+      <SSIS:Property
+        SSIS:Name="ID">{1c2d1f8d-10e5-4f70-96f1-f818be939b34}</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="CreationName"></SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Description"></SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Required">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Sensitive">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Value">GRIFF-PC\SQLEXPRESS2014</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="DataType">18</SSIS:Property>
+    </SSIS:Properties>
+  </SSIS:Parameter>
+  <SSIS:Parameter
+    SSIS:Name="DatabaseSource02">
+    <SSIS:Properties>
+      <SSIS:Property
+        SSIS:Name="ID">{3eb0fe37-c133-4546-aadd-b1741da62f59}</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="CreationName"></SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Description"></SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Required">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Sensitive">0</SSIS:Property>
+      <SSIS:Property
+        SSIS:Name="Value">Northwind</SSIS:Property>
       <SSIS:Property
         SSIS:Name="DataType">18</SSIS:Property>
     </SSIS:Properties>

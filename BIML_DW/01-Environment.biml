@@ -1,0 +1,30 @@
+<#@ template language="C#" tier="1"#>
+<#@ include file="Variables.biml"  #> 
+
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+
+  <Connections>
+    <OleDbConnection Name="Source01" ConnectionString="<#=source01Conn#>">
+    </OleDbConnection>
+       <OleDbConnection Name="Source02" ConnectionString="<#=source02Conn#>">
+    </OleDbConnection>
+    <OleDbConnection Name="Staging" ConnectionString="<#=stagingConn#>">
+    </OleDbConnection>
+    <OleDbConnection Name="DataWarehouse" ConnectionString="<#=dwConn#>">
+    </OleDbConnection>
+  </Connections>
+  
+ <Databases>
+    <Database Name="<#=databaseStaging#>" ConnectionName="Staging" />
+        <Database Name="<#=databaseSource01#>" ConnectionName="Source01" />
+               <Database Name="<#=databaseSource02#>" ConnectionName="Source02" />
+  </Databases>
+  <Schemas>
+    <Schema Name="<#=schemaStage#>" DatabaseName="<#=databaseStaging#>" />
+        <Schema Name="<#=schemaSource#>" DatabaseName="<#=databaseSource01#>" />
+            <Schema Name="<#=schemaSource#>" DatabaseName="<#=databaseSource02#>" />
+                <Schema Name="<#=schemaDataWarehouse#>" DatabaseName="<#=databaseDataWarehouse#>" />
+  </Schemas>
+      
+      
+</Biml>

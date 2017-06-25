@@ -1,0 +1,62 @@
+<#@ property name="Conn" type="String"#>
+<#@ property name="Table" type="AstTableNode"#>
+<#@ property name="UserName" type="String"#>
+<#@ property name="date" type="String"#>
+<#@ property name="schemaDataWarehouse" type="String"#>
+<#@ property name="schemaStaging" type="String"#>
+<#@ property name="schemaProcess" type="String"#>
+    <ExecuteSQL Name="SQL Create Procedure <#=Table.Name#>_MERGE" ConnectionName="<#=Conn#>">
+              <DirectInput>
+            
+              
+          IF OBJECT_ID('<#=schemaProcess#>.<#=Table.Name#>_MERGE') IS NOT NULL
+            DROP PROCEDURE <#=schemaProcess#>.<#=Table.Name#>_MERGE;
+          GO 
+          /*
+          ############################
+          Author: <#=UserName#>
+          Creation Date: <#=date#>
+          History:
+          Example Usage: EXEC <#=schemaProcess#>.<#=Table.Name#>_MERGE;
+          ############################
+          */
+          
+          CREATE PROCEDURE <#=schemaProcess#>.<#=Table.Name#>_MERGE
+          
+          AS
+          
+          BEGIN TRY
+          
+          --Remove the error below once happy with your code
+          DECLARE @msg NVARCHAR(MAX) = 'Awaiting Proper Code for MERGE. A basic starting point has been added but you want to check...'+CHAR(10)+
+          +'Remove this error once you''re happy with the code.';
+          RAISERROR (@msg,16,1);
+          
+          INSERT INTO <#=schemaDataWarehouse#>.<#=Table.Name#>
+          (
+          <#=Table.GetColumnList()#>
+          )
+          SELECT 
+          <#=Table.GetColumnList()#>
+          FROM <#=schemaStaging#>.<#=Table.Name#>
+          
+          END TRY
+          
+          BEGIN CATCH
+          
+          THROW;
+          
+          END CATCH
+          
+          GO 
+          
+          EXEC sys.sp_addextendedproperty @name=N'Description'
+                , @value=N'Merges data from stage <#=Table.Name#> into data warehouse <#=Table.Name#>' 
+                , @level0type=N'SCHEMA',@level0name=N'<#=schemaProcess#>'
+                , @level1type=N'PROCEDURE'
+                ,@level1name=N'<#=Table.Name#>_MERGE'
+                GO
+          
+          </DirectInput>
+          
+    </ExecuteSQL>

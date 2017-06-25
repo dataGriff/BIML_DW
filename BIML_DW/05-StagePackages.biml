@@ -13,13 +13,13 @@
             <Connections>
                 <Connection ConnectionName="Source">
                     <Expressions>
-                        <Expression ExternalProperty="InitalCatalog">@[$Project::DatabaseSource]</Expression>
-                        <Expression ExternalProperty="ServerName">@[$Project::ServerSource]</Expression>
+                        <Expression ExternalProperty="InitalCatalog">@[$Project::DatabaseSource01]</Expression>
+                        <Expression ExternalProperty="ServerName">@[$Project::ServerSource01]</Expression>
                     </Expressions>
                 </Connection>
-                <Connection ConnectionName="Target">
+                <Connection ConnectionName="Staging">
                     <Expressions>
-                        <Expression ExternalProperty="InitialCatalog">@[$Project::DatabaseDataWarehouse]</Expression>
+                        <Expression ExternalProperty="InitialCatalog">@[$Project::DatabaseStaging]</Expression>
                         <Expression ExternalProperty="ServerName">@[$Project::ServerDataWarehouse]</Expression>
                     </Expressions>
                 </Connection>
@@ -29,8 +29,8 @@
         </Variables>
             
             <Tasks>
-    	<#=CallBimlScript("cbs_SQL_TruncateTable.biml", "Target", Table) #>
-    	<#=CallBimlScript("cbs_DFT_RowCount.biml", "Source","Target",sourceSchema, Table) #>
+    	<#=CallBimlScript("cbs_SQL_TruncateTable.biml", "Staging", Table) #>
+    	<#=CallBimlScript("cbs_DFT_RowCount.biml", "Source","Staging",sourceSchema, Table) #>
              
             </Tasks>
         </Package>

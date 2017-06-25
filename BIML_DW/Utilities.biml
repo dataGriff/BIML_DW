@@ -1,0 +1,21 @@
+
+<#+
+
+	public void Hello()
+	{
+    MessageBox.Show("Hello World!");
+    }
+
+	public string GetDate()
+	{
+        return DateTime.Now.ToString("yyyy-MM-dd");
+    }
+
+	public string GetUserName()
+	{
+	    return Environment.UserName;
+    }
+
+#>
+
+

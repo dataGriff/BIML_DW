@@ -1,13 +1,20 @@
 <#
-string serverSource = "GRIFF-PC\\SQLEXPRESS2014";
-string databaseSource = "AdventureWorks2014";
+string serverSource01 = "GRIFF-PC\\SQLEXPRESS2014";
+string databaseSource01 = "AdventureWorks2014";
+string serverSource02 = "GRIFF-PC\\SQLEXPRESS2014";
+string databaseSource02 = "Northwind";
+
 string serverDataWarehouse = "GRIFF-PC\\SQLEXPRESS2014";
 string databaseDataWarehouse = "dw";
+string databaseStaging = "dw";
 
-var sourceConn = "Server="+serverSource+";Initial Catalog="+databaseSource+";Provider=SQLNCLI11.1;Integrated Security=SSPI;" ;
-var destinationConn = "Server="+serverDataWarehouse+";Initial Catalog="+databaseDataWarehouse+";Provider=SQLNCLI11.1;Integrated Security=SSPI;" ;
+var dwConn = "Server="+serverDataWarehouse+";Initial Catalog="+databaseDataWarehouse+";Provider=SQLNCLI11.1;Integrated Security=SSPI;" ;
+var stagingConn = "Server="+serverDataWarehouse+";Initial Catalog="+databaseStaging+";Provider=SQLNCLI11.1;Integrated Security=SSPI;" ;
+var source01Conn = "Server="+serverSource01+";Initial Catalog="+databaseSource01+";Provider=SQLNCLI11.1;Integrated Security=SSPI;" ;
+var source02Conn = "Server="+serverSource02+";Initial Catalog="+databaseSource02+";Provider=SQLNCLI11.1;Integrated Security=SSPI;" ;
 
-string sourceSchema ="dw";
-string stageSchema ="stg";
-
+string schemaSource ="dw";
+string schemaStage ="stg";
+string schemaDataWarehouse ="import";
+string schemaProcess ="etl";
 #>

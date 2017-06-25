@@ -1,12 +1,13 @@
 <#@ template language="C#" tier="2"#>
+<#@ include file="Variables.biml"  #> 
 <#
-var sourceConnection = RootNode.DbConnections["Source"];
+var sourceConnection = RootNode.DbConnections["Source01"];
 var importResult = sourceConnection.ImportDB("dw", "");
 #>
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
   <Tables>
     <# foreach (var table in importResult.TableNodes) { #>
-    <Table Name="<#=table.Name#>" SchemaName="dw.stg">
+    <Table Name="<#=table.Name#>" SchemaName="<#=databaseStaging#>.<#=schemaStage#>">
       <Columns>
         <# foreach (var column in table.Columns) { #>
           <# if (column.DataType == System.Data.DbType.AnsiString) { #>
