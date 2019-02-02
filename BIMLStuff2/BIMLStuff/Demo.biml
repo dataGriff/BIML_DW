@@ -3,21 +3,29 @@
     <#
     
 string connectionstring = "Data Source=.;Initial Catalog=AdventureWorksDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;";
- 
 var targetConnection = SchemaManager.CreateConnectionNode("SchemaProvider", connectionstring); 
- 
 IEnumerable<AstTableNode> sourceTables = targetConnection.ImportDB("dbo", "Dim%", ImportOptions.ExcludeViews).TableNodes; 
  
-   foreach (var element in sourceTables)
+foreach (var table in sourceTables)
     {
-        TableAddExtPropAnnotation(element,connectionstring);
+        TableAddExtPropAnnotation(table,connectionstring);
     }
-    
-       foreach (var element in sourceTables)
-    {
-    if(element.GetTag("Description") != "")
-        MessageBox.Show(element.GetTag("Description"));
-    }
+
+foreach (var table in sourceTables)
+{
+    if(table.GetTag("Description") != "")
+        MessageBox.Show(table.GetTag("Description"));
+        
+        foreach (var column in table.Columns) 
+        {
+            if(column.GetTag("Description") != "")
+            {
+                 MessageBox.Show(column.Name);
+                 MessageBox.Show(column.GetTag("Description"));
+            }
+            
+        }
+}
 
 #>
 </Biml>

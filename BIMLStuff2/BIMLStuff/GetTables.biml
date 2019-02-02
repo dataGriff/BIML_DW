@@ -10,8 +10,8 @@ foreach (var table in sourceTables)
 {
     //Console.WriteLine(table.Name);
     
-    MessageBox.Show(table.Name);
-    MessageBox.Show(table.GetColumnList());
+    //MessageBox.Show(table.Name);
+    //MessageBox.Show(table.GetColumnList());
 }
     #>
 </Biml>

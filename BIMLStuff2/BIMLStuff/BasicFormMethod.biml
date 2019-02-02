@@ -1,7 +1,7 @@
     <#+
     public void DoForm()
     {
-        MessageBox.Show("This works");
+      //  MessageBox.Show("This works");
     }
     #>
 </Biml>

@@ -1,6 +1,6 @@
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
     <#
-    MessageBox.Show("This works");
+    //MessageBox.Show("This works");
     #>
 </Biml>
 <#@ import namespace="System.Windows.Forms" #>
