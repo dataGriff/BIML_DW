@@ -1,0 +1,19 @@
+    <#+
+
+public AstTableNode  TableAddExtPropAnnotation(AstTableNode table, string connectionString)
+    {
+        var targetConnection = SchemaManager.CreateConnectionNode("SchemaProvider", connectionString); 
+        var query = string.Format("SELECT name, value FROM fn_listextendedproperty(NULL, 'schema', '{0}', 'table', '{1}', NULL, NULL)", table.SchemaName, table.Name);
+        var extendedProperties = ExternalDataAccess.GetDataTable(targetConnection.ConnectionString, query);
+
+        foreach (DataRow ep in extendedProperties.Rows)
+            {
+                table.AddAnnotation(AnnotationType.Tag, ep["value"].ToString(), ep["name"].ToString());
+            }
+        return table;
+    }
+
+
+#>
+<#@ import namespace="System.Data" #>
+<#@ assembly name= "C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Data.dll" #>

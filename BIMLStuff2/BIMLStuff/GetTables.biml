@@ -1,0 +1,20 @@
+<Biml xmlns="http://schemas.varigence.com/biml.xsd">
+    <#
+   string connectionstring = "Data Source=.;Initial Catalog=AdventureWorksDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;";
+ 
+var targetConnection = SchemaManager.CreateConnectionNode("SchemaProvider", connectionstring); 
+ 
+IEnumerable<AstTableNode> sourceTables = targetConnection.ImportDB("dbo", "Dim%", ImportOptions.ExcludeViews).TableNodes; 
+ 
+foreach (var table in sourceTables)
+{
+    //Console.WriteLine(table.Name);
+    
+    MessageBox.Show(table.Name);
+    MessageBox.Show(table.GetColumnList());
+}
+    #>
+</Biml>
+<#@ import namespace="System.Windows.Forms" #>
+<#@ assembly name= "C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Windows.Forms.dll" #>
+
