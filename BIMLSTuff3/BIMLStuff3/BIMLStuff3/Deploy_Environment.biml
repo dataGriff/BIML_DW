@@ -1,17 +1,18 @@
 ﻿<#@ template language="C#" tier="1"#>
+<#@ include file="Variables.biml" #>
 
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
 
   <Connections>
-    <OleDbConnection Name="AdventureWorksDW" ConnectionString="Data Source=.;Initial Catalog=AdventureWorksDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;">
+    <OleDbConnection Name="<#=connectionName#>" ConnectionString="<#=connectionString#>">
     </OleDbConnection>
   </Connections>
   
  <Databases>
-    <Database Name="AdventureWorksDW" ConnectionName="AdventureWorksDW" />
+    <Database Name="<#=databaseName#>" ConnectionName="<#=connectionName#>" />
   </Databases>
   <Schemas>
-     <Schema Name="dbo" DatabaseName="AdventureWorksDW" />
+     <Schema Name="<#=schemaName#>" DatabaseName="<#=databaseName#>" />
   </Schemas>
       
       

@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">GRIFF-PC</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA0ozhjwiPxU2ioR13FddPeAAAAAACAAAAAAAQZgAAAAEAACAAAAChyj/6s+AWqezLsSSAXB4AjXQgBRRYfz5LFvenA4EUAgAAAAAOgAAAAAIAACAAAAAPHFk8X+OiswbS5t0juY2lSOFREC6pvpVEoZrkx81RZJAAAADDOMQm1jst2VXIFqfo8IW+60NgW9++n8rHmU7ppriVclrTkPF2YUUhov+6KQXTY1M4+iG2M/n3cRYwsTLH0t0K3rw0wxCJNfpgSAfmb5zAhUmaPt1sxcntgEqCBgGeMD7YDtoRyN1ySemV4f9EdPxJgkeheFo8aZ/gjYkiq2MHCR2VTYVv9h90RaQngVVoeYhAAAAA2MfksRe6Q4wI5whobLDJxoO6UBeZ2Nnj46RvtUWXWSmFyW2vOjos9z13SZTPp5HQvqQeAEqRCwLBdFQv+IT8VA==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA0ozhjwiPxU2ioR13FddPeAAAAAACAAAAAAAQZgAAAAEAACAAAAAp+dElYgqQTTWe32KdqX716i6qT8CS95SpPKVcAYizWQAAAAAOgAAAAAIAACAAAAAONpSZH3aEIMetiqrob1EHG60QH4LrmnjJZJqu8j0T95AAAACmngDd0Ud6GPQlaofcst0maBmK/9xs/6WdgWS6C465Qzq5kcO27UnKe3601jjoWdLYMeRx76WL2qrc6BKmqgXFr2R1SkdHA/obsdAElMwZX5qwt2C3HWrYSOfojbPaPdlr2fg5IrsvcVS87TSmrNLcw+Yh6wFGE0ja7KXgswLm6rUePM2aBkCzcuNcNY5sXvhAAAAAnso9cFbr5+jbQBMfZr0LTnNfXiyYACLfRQ4Bg+eP7WO2e773sskdlaxrqPUzFQN0jEHfkGEkBQlTtVku7i71zA==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -61,16 +61,20 @@
   <ControlFlowParts />
   <Miscellaneous>
     <ProjectItem>
-      <Name>util_AddProperties.biml</Name>
-      <FullPath>util_AddProperties.biml</FullPath>
+      <Name>Variables.biml</Name>
+      <FullPath>Variables.biml</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Deploy_Environment.biml</Name>
+      <FullPath>Deploy_Environment.biml</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>Deploy_TableMetadata.biml</Name>
       <FullPath>Deploy_TableMetadata.biml</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>Deploy_Environment.biml</Name>
-      <FullPath>Deploy_Environment.biml</FullPath>
+      <Name>util_AddProperties.biml</Name>
+      <FullPath>util_AddProperties.biml</FullPath>
     </ProjectItem>
   </Miscellaneous>
   <Configurations>
@@ -83,7 +87,13 @@
         <ConnectionSecurityMappings />
         <DatabaseStorageLocations />
         <TargetServerVersion>SQLServer2017</TargetServerVersion>
-        <ParameterConfigurationValues />
+        <ParameterConfigurationValues>
+          <ConfigurationSetting>
+            <Id>LastModifiedTime</Id>
+            <Name>LastModifiedTime</Name>
+            <Value xsi:type="xsd:dateTime">2019-02-03T12:45:15.1941667Z</Value>
+          </ConfigurationSetting>
+        </ParameterConfigurationValues>
       </Options>
     </Configuration>
   </Configurations>

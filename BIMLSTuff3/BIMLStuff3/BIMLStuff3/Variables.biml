@@ -1,0 +1,15 @@
+﻿<#
+
+//Amend the values below to represent your environment
+
+string connectionName = "Datawarehouse";
+string serverName = "localhost";
+string databaseName = "AdventureWorksDW";
+string schemaName = "dbo";
+
+var includedSchemas = new List<string>{schemaName};
+var includedTables = new List<string>{"DimAccount","DimProduct"};
+
+string connectionString = "Data Source=" + serverName + ";Initial Catalog=" + databaseName + ";Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;";
+
+#>
