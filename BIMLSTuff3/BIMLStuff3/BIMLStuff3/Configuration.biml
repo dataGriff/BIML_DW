@@ -4,8 +4,8 @@
 
 string connectionName = "Datawarehouse";
 string serverName = "localhost";
-string databaseName = "AdventureWorksDW";
-string schemaName = "dbo";
+string databaseName = "WideWorldImportersDW";
+string schemaName = "Dimension";
 
 var includedSchemas = new List<string>{schemaName};
 var includedTables = new List<string>{"DimAccount","DimProduct"};

@@ -6,7 +6,7 @@
 
 <#
 var sourceConnection = SchemaManager.CreateConnectionNode(databaseName, connectionString);
-var sourceTables = sourceConnection.GetDatabaseSchema(includedSchemas, includedTables, ImportOptions.None);
+var sourceTables = sourceConnection.GetDatabaseSchema(includedSchemas, null, ImportOptions.None);
  #>
  
  <Biml xmlns="http://schemas.varigence.com/biml.xsd">
