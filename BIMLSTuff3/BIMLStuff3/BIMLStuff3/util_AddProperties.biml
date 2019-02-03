@@ -5,18 +5,18 @@
         var extendedPropertiesQuery = string.Format("SELECT name, value FROM fn_listextendedproperty(NULL, 'schema', '{0}', 'table', '{1}', NULL, NULL)", table.SchemaName, table.Name);
         var extendedProperties = ExternalDataAccess.GetDataTable(targetConnection.ConnectionString, extendedPropertiesQuery);
         
-        foreach (DataRow ep in extendedProperties.Rows)
+        foreach (DataRow exProp in extendedProperties.Rows)
             {
-                table.AddAnnotation(AnnotationType.Tag, ep["value"].ToString(), ep["name"].ToString());
+                table.AddAnnotation(AnnotationType.Tag, exProp["value"].ToString(), exProp["name"].ToString());
             }
         
          foreach (var column in table.Columns) 
          { 
              extendedPropertiesQuery = string.Format("SELECT name, value FROM fn_listextendedproperty(NULL, 'schema', '{0}', 'table', '{1}', 'column', '{2}')", table.SchemaName, table.Name, column);
              extendedProperties = ExternalDataAccess.GetDataTable(targetConnection.ConnectionString, extendedPropertiesQuery);   
-                foreach (DataRow ep in extendedProperties.Rows)
+                foreach (DataRow exProp in extendedProperties.Rows)
                     {
-                        column.AddAnnotation(AnnotationType.Tag, ep["value"].ToString(), ep["name"].ToString());
+                        column.AddAnnotation(AnnotationType.Tag, exProp["value"].ToString(), exProp["name"].ToString());
                     }
                     
              var queryInformationSchemaColumns = "SELECT c.name AS ColumnName FROM sys.all_views v JOIN sys.schemas s ON s.schema_id = v.schema_id JOIN sys.all_columns c ON c.object_id = v.object_id WHERE s.name = 'information_Schema' AND v.name = 'columns';";
@@ -24,12 +24,12 @@
              var queryInformationSchema = string.Format("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = '{0}' and TABLE_NAME = '{1}' AND COLUMN_NAME = '{2}'", table.SchemaName, table.Name, column);
              var informationSchema = ExternalDataAccess.GetDataTable(targetConnection.ConnectionString, queryInformationSchema);   
                     
-                    foreach (DataRow ep1 in informationSchema.Rows)
+                    foreach (DataRow infoSchemaData in informationSchema.Rows)
                     {
-                        foreach(DataRow ep2 in informationSchemaColumns.Rows)
+                        foreach(DataRow infoSchemaColumn in informationSchemaColumns.Rows)
                         {
-                            string columnName = ep2["ColumnName"].ToString();
-                            column.AddAnnotation(AnnotationType.Tag, ep1[columnName].ToString(), ep2["ColumnName"].ToString());
+                            string columnName = infoSchemaColumn["ColumnName"].ToString();
+                            column.AddAnnotation(AnnotationType.Tag, infoSchemaData[columnName].ToString(), infoSchemaColumn["ColumnName"].ToString());
                         }
                     }
                     
