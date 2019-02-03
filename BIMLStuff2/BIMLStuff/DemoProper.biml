@@ -1,0 +1,25 @@
+<#@ include file="AddAnnotationFromExtProps.biml" #>
+    <#
+string connectionstring = "Data Source=.;Initial Catalog=AdventureWorksDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;";
+//var sourceConnection = RootNode.DbConnections["AdventureWorksDW"];
+
+ var includedSchemas = new List<string>{"dbo"};
+
+var sourceConnection = SchemaManager.CreateConnectionNode("AdventureWorksDW", connectionstring);
+var sourceTables = sourceConnection.GetDatabaseSchema(includedSchemas, null, ImportOptions.None);
+ #>
+ 
+ <Biml xmlns="http://schemas.varigence.com/biml.xsd">
+ <Tables>
+    <# foreach (var table in sourceTables) { #>
+    <Table Name="<#=table.Name#>" SchemaName="AdventureWorksDW.dbo">
+      <Columns>
+        <# foreach (var column in table.Columns) { #>
+               <#=column.GetBiml()#>
+                   <# } #> 
+      </Columns>
+    </Table>
+    <# } #>
+  </Tables>
+
+</Biml>
