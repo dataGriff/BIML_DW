@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "BIMLStuff3", "BIMLStuff3\BIMLStuff3.dtproj", "{3120A534-EA36-4390-9EA4-11780FB9E276}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3120A534-EA36-4390-9EA4-11780FB9E276}.Development|Default.ActiveCfg = Development
+		{3120A534-EA36-4390-9EA4-11780FB9E276}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A1576E10-5D0E-4B26-85DA-B5102C606E49}
+	EndGlobalSection
+EndGlobal

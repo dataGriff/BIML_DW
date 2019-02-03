@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/3/2019 11:33:31 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="GRIFF-PC"
+  DTS:CreatorName="GRIFF-PC\griff182uk"
+  DTS:DTSID="{A79EB401-D581-4478-ABFA-81717699B8B1}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="15.0.1100.123"
+  DTS:LocaleID="2057"
+  DTS:ObjectName="Package"
+  DTS:PackageType="5"
+  DTS:VersionGUID="{48EBAE15-1F6E-4E48-9B2F-136094A35450}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables />
+</DTS:Executable>

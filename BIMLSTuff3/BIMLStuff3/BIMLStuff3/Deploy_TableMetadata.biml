@@ -1,0 +1,28 @@
+﻿//column.GetTag("Description") --this is how you grab a tag
+
+<#@ template language="C#" tier="2"#>
+<#@ include file="Deploy_Environment.biml" #>
+<#@ include file="util_AddProperties.biml" #>
+
+<#
+string connectionstring = "Data Source=.;Initial Catalog=AdventureWorksDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;";
+var includedSchemas = new List<string>{"dbo"};
+var sourceConnection = SchemaManager.CreateConnectionNode("AdventureWorksDW", connectionstring);
+var sourceTables = sourceConnection.GetDatabaseSchema(includedSchemas, null, ImportOptions.None);
+ #>
+ 
+ <Biml xmlns="http://schemas.varigence.com/biml.xsd">
+ <Tables>
+    <# foreach (var table in sourceTables.TableNodes) { 
+        AddProperties(table,connectionstring);#>
+        <Table Name="<#=table.Name#>" SchemaName="AdventureWorksDW.dbo">
+          <Columns>
+            <# foreach (var column in table.Columns) { #>
+                <#=column.GetBiml()#>
+             <# } #> 
+          </Columns>
+        </Table>
+    <# } #>
+  </Tables>
+
+</Biml>
