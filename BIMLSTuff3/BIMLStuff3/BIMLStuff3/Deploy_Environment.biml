@@ -1,5 +1,5 @@
 ﻿<#@ template language="C#" tier="1"#>
-<#@ include file="Variables.biml" #>
+<#@ include file="Configuration.biml" #>
 
 <Biml xmlns="http://schemas.varigence.com/biml.xsd">
 
